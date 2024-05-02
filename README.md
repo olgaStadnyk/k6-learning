@@ -31,7 +31,7 @@ k6 run first-test/first-script.js
 ```
 
 ## Results
-
+   
 Analyzing the Test Results
 Once the test run is complete, K6 generates a summary report that provides detailed information about the test results. The report includes metrics such as response time distribution, error rate, and throughput.
 
