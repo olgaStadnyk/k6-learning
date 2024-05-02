@@ -1,0 +1,17 @@
+{
+  "name": "k6-learning",
+  "version": "1.0.0",
+  "description": "k6 learning",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "k6"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/k6": "^0.50.1"
+  }
+}
