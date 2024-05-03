@@ -1,4 +1,7 @@
 results.json
+package-lock.json
+script.js
+/assets/screenshots
 
 # dependencies
 /node_modules

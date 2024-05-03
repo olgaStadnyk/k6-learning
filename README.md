@@ -1,5 +1,21 @@
 # k6-learning
 
+Grafana k6 is an open-source load testing tool that makes performance testing easy and productive for engineering teams. k6 is free, developer-centric, and extensible.
+
+Using k6, you can test the reliability and performance of your systems and catch performance regressions and problems earlier. k6 will help you to build resilient and performant applications that scale.
+
+- Load testing
+
+k6 is optimized for minimal resource consumption and designed for running high load tests (spike, stress, soak tests) .
+
+- Browser testing
+
+Through k6 browser, you can run browser-based performance testing and catch issues related to browsers only which can be skipped entirely from the protocol level.
+
+- Performance and synthetic monitoring
+
+With k6, you can automate and schedule to trigger tests very frequently with a small load to continuously validate the performance and availability of your production environment.
+
 ## Installation
 
 ### MacOS:
@@ -22,34 +38,35 @@ winget install k6 --source winget
 ### Linux:
 https://grafana.com/docs/k6/latest/set-up/install-k6/#linux 
 
+## Configure k6 IntelliSense
+
+IntelliSense refers to code editing features like intelligent code completion and quick access to documentation. These features can significantly improve the developer experience and productivity when working on k6 scripts in your editor of choice. Notable features are:
+
+- Auto-completion of k6 functions, methods, and classes.
+- Auto imports of k6 modules.
+- Access to k6 documentation when writing and hovering code.
+
+![IntelliSense example](/assets/IntelliSense.png)
+
+```
+npm i
+```
+
+## Generate the first test with explanation comments
+
+To run a simple local script:
+
+1. Create and initialize a new script by running the following command:
+```
+k6 new
+```
+This command creates a new script file named *script.js* in the current directory. You can also specify a different file name as an argument to the k6 new command, for example `k6 new my-test.js`.
+
+2. Run k6 with the following command:
+```
+k6 run script.js
+```
+
 ## Run the first simple test
 
-K6 will start executing the test script and display real-time statistics about the test run, including the number of virtual users, requests per second, response times, and more.
-
-```
-k6 run first-test/first-script.js
-```
-
-## Results
-   
-Analyzing the Test Results
-Once the test run is complete, K6 generates a summary report that provides detailed information about the test results. The report includes metrics such as response time distribution, error rate, and throughput.
-
-Additionally, K6 allows you to export the test results in various formats, such as JSON, CSV, and InfluxDB. This enables you to integrate K6 with other tools for further analysis and visualization of the test data.
-
-**VUs** - Current number of active virtual users
-
-
-**Iterations** - 	Counter - The aggregate number of times the VUs execute the JS script (the default function). 
-
-Create json file with the results:
-```
-k6 run --out json=results.json first-test/first-script.js
-```
-
-![cli result](/assets/firstTestResult.png)
-
-
-
-
-
+Navigate to Readme file: first-test/README.md
