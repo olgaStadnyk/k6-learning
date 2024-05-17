@@ -23,6 +23,8 @@ export const options = {
           type: 'chromium',
         },
       },
+      vus: 10,
+      iterations: 10,
     },
   },
   // Define performance thresholds for checks (performance expectations in checks)
@@ -39,7 +41,7 @@ export default async function () {
   try {
     // Open the target URL in the browser page
     await page.goto('https://test.k6.io/my_messages.php');
-    page.screenshot({ path: 'assets/screenshots/screenshot-login.png' });
+    // page.screenshot({ path: 'assets/screenshots/screenshot-login.png' });
 
     // Simulate user input for login form
     page.locator('input[name="login"]').type('admin');
@@ -55,11 +57,13 @@ export default async function () {
     check(page, {
       'header': p => p.locator('h2').textContent() == 'Welcome, admin!', // Check for successful login message
     });
-    page.screenshot({ path: 'assets/screenshots/screenshot-header.png' });
+    // page.screenshot({ path: 'assets/screenshots/screenshot-header.png' });
   } finally {
     // Close the browser page after the test finishes (always recommended)
     page.close();
   }
 }
 
-// k6 run browser-test/simple-test.js
+// k6 run browser-test/browser-test.js
+
+// k6 cloud browser-test/browser-test.js

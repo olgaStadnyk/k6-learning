@@ -44,3 +44,50 @@ The browser test was successful. All checks passed, web vitals are good, and pag
 ```
 K6_BROWSER_HEADLESS=false k6 run browser-test/simple-test.js
 ```
+
+### Run on Grafana cloud
+
+`k6 cloud browser-test/simple-test.js`
+
+result:
+
+![browser cloud](/assets/browser-cloud.png)
+
+### Key Metrics:
+- LCP (Largest Contentful Paint): 0.09 s (Good)
+  This metric measures the time until the largest content element on the page becomes visible.
+- FID (First Input Delay): 1 ms (Good)
+  This metric measures the delay between the user's first interaction (e.g., click) and the moment when the browser can process that interaction.
+- CLS (Cumulative Layout Shift): 0.00 (Good)
+  This metric measures the sum of all layout shifts that occur during the entire lifespan of the page.
+- FCP (First Contentful Paint): 0.09 s (Good)
+  This metric measures the time until the first text or image is painted.
+- INP (Interaction to Next Paint): 0 ms (Good)
+  This metric measures the time between user interaction and the next paint.
+- TTFB (Time to First Byte): 63 ms (Good)
+  This metric measures the time from the request being sent to receiving the first byte of the response from the server.
+  
+### Graph Analysis:
+The graph shows the main metrics over time:
+
+- **LCP (Largest Contentful Paint)**: Yellow line indicating the time to display the largest content element.
+- **FID (First Input Delay)**: Blue line indicating the delay between user interaction and processing.
+- **CLS (Cumulative Layout Shift)**: Red line indicating layout stability.
+- **FCP (First Contentful Paint)**: Cyan line indicating the time to display the first content element.
+- **INP (Interaction to Next Paint)**: Green line indicating the time to the next paint after interaction.
+- **TTFB (Time to First Byte)**: Purple line indicating the time to receive the first byte of the response from the server.
+
+### Analysis and Conclusions:
+- All metrics are within good ranges:
+  LCP, FID, CLS, FCP, INP, and TTFB are in the green zone, indicating good performance.
+- Stability during testing:
+  The metrics remain stable throughout the test, indicating no significant performance issues under load.
+- No errors:
+  No HTTP errors were recorded, indicating stable server performance during the test.
+- Low response times:
+  Low values for LCP, FCP, and TTFB indicate fast page loading and content delivery.
+
+
+For 10 users:
+
+![browser cloud](/assets/browser-cloud-10.png)
