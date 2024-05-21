@@ -214,3 +214,80 @@ iterations.....................: 1      1.525116/s
 ```
 
 The number `1.525116/s` on the same line is the **iterations per second**. It describes the rate at which k6 did full iterations through the script. This, like [requests per second](03-Understanding-k6-results.md#Number-of-requests), is a measure of the speed or rate at which k6 sent messages to the application server.
+
+## Custom summary
+
+With handleSummary(), you can completely customize your end-of-test summary.
+
+After your test runs, k6 aggregates your metrics into a JavaScript object. The handleSummary() function takes this object as an argument (called data in all examples here).
+
+You can use handleSummary() to create a custom summary or return the default summary object. To get an idea of what the data looks like, run this script and open the output file, summary.json.
+
+`k6 run api-tests/summary.js`
+
+Fundamentally, handleSummary() is just a function that can access a data object. As such, you can transform the summary data into any text format: JSON, HTML, console, XML, and so on. You can pipe your custom summary to standard output or standard error, write it to a file, or send it to a remote server.
+
+k6 calls handleSummary() at the end of the test lifecycle.
+
+If handleSummary() is exported, k6 does not print the default summary. However, if you want to keep the default output, you could import textSummary from the K6 JS utilities library. For example, you could write a custom HTML report to a file, and use the textSummary() function to print the default report to the console.
+
+```
+import http from 'k6/http';
+import { textSummary } from 'https://jslib.k6.io/k6-summary/0.0.2/index.js';
+
+export default function () {
+  http.get('https://test.k6.io');
+}
+
+export function handleSummary(data) {
+  delete data.metrics['http_req_duration{expected_response:true}'];
+
+  for (const key in data.metrics) {
+    if (key.startsWith('iteration')) delete data.metrics[key];
+  }
+
+  return {
+    stdout: textSummary(data, { indent: '→', enableColors: true }),
+  };
+}
+```
+
+## Web dashboard
+
+k6 provides a built-in web dashboard that you can enable to visualize and monitor your tests results in real-time.
+
+The dashboard provides a real-time overview of the performance observed by k6 **while a test is running**, and can help you identify potential reliability issues as they occur.
+
+### How to use
+The web dashboard is a built-in feature of k6. You can enable it by setting the K6_WEB_DASHBOARD environment variable to true when running your test script, for example:
+
+```
+K6_WEB_DASHBOARD=true ./k6 run script.js
+
+          /\      |‾‾| /‾‾/   /‾‾/
+     /\  /  \     |  |/  /   /  /
+    /  \/    \    |     (   /   ‾‾\
+   /          \   |  |\  \ |  (‾)  |
+  / __________ \  |__| \__\ \_____/ .io
+
+     execution: local
+        script: ../extensions/xk6-dashboard/script.js
+ web dashboard: http://127.0.0.1:5665
+        output: -
+```
+![checks](/assets/web_dashboard.png)
+
+### Generate HTML test reports
+You can generate detailed, downloadable HTML reports directly from the web dashboard or the command line. These reports are self-contained, making them ideal for sharing with your team.
+
+To generate a report from the web dashboard, click Report on the dashboard’s menu.
+
+**Generate report from the command line**
+To automatically generate a report from the command line once the test finishes running, use the K6_WEB_DASHBOARD_EXPORT option. For example:
+
+`K6_WEB_DASHBOARD=true K6_WEB_DASHBOARD_EXPORT=html-report.html k6 run api-tests/thresholds.js`
+
+![report](/assets/report1.png)
+![report](/assets/report2.png)
+
+

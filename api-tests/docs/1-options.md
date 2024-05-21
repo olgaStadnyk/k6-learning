@@ -63,7 +63,7 @@ What if you want to add a ramp-up or ramp-down, so that the profile looks more l
 
 *Ramp-up is the amount of time it takes for a load test to go from 0 users to the desired number of users, and is found at the beginning of a test. Ramp-down is the time it takes for a load test to go from the desired number of users back down to 0, and is found at the end of a test.*
 
-![checks](/assets/load_profile-constant.png.png)
+![checks](/assets/load_profile-constant.png)
 
 In that case, you may want to use stages.
 
