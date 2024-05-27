@@ -70,3 +70,12 @@ k6 run script.js
 ## Run the first simple test
 
 Navigate to Readme file: first-test/README.md
+
+## The structure of the folders
+
+- `.github/workflows` - YAML files that define automated workflows for your project.
+- `AI` - an example of how AI can help to generate tests
+- `api-tests` - contains documentation and a lot of tests examples.
+- `assets` - screenshots used in documentations
+- `browser-test` - contains documentation and tests examples for Browser testing
+- `cicd` - test example used in GH actions and docs

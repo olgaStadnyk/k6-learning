@@ -24,3 +24,5 @@ jobs:
         with:
           name: k6-report
           path: results.json
+
+# cicd/cicd.js test is running in GH Actions when label 'run_load_test' is added to the PR

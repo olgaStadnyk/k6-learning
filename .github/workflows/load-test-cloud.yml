@@ -21,3 +21,6 @@ jobs:
           token: ${{ secrets.K6_CLOUD_API_TOKEN }}
         env:
           K6_CLOUD_PROJECT_ID: ${{ secrets.GRAFANA_PROJECT_ID }}
+
+# cicd/cicd.js test is running in Grafana cloud when files inside cicd folder are changed.
+# Change token and K6_CLOUD_PROJECT_ID to your values to see the results
