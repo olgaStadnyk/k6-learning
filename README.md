@@ -79,3 +79,11 @@ Navigate to Readme file: first-test/README.md
 - `assets` - screenshots used in documentations
 - `browser-test` - contains documentation and tests examples for Browser testing
 - `cicd` - test example used in GH actions and docs
+...
+
+
+## Useful links
+
+- [Udemy course: "Performance Testing: Introduction to k6 for Beginners"](https://levi9.udemy.com/course/k6-load-testing-performance-testing/)
+- [Grafana k6 doc](https://grafana.com/docs/k6/latest/)
+
