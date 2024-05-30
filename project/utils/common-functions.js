@@ -1,9 +1,30 @@
 import { sleep } from 'k6';
 
+/**
+ * Generates a random sleep time between min and max (inclusive) and pauses the execution.
+ * 
+ * @param {number} min - Minimum sleep time in seconds.
+ * @param {number} max - Maximum sleep time in seconds.
+ */
 export function generateTimer(min, max) {
-  if (arguments.length === 1) {
-    max = min;
-    min = 0;
+  if (typeof min !== 'number' || typeof max !== 'number') {
+      throw new Error('Both min and max parameters should be numbers');
   }
-  sleep(Math.floor(Math.random() * (max - min)) + min);
+
+  // If only one argument is provided, treat it as the max, with min defaulting to 0
+  if (arguments.length === 1) {
+      max = min;
+      min = 0;
+  }
+
+  // Ensure min is not greater than max
+  if (min > max) {
+      throw new Error('Min parameter should not be greater than max parameter');
+  }
+
+  // Calculate a random sleep time between min and max (inclusive)
+  const sleepTime = Math.random() * (max - min) + min;
+  
+  // Pause execution for the calculated sleep time
+  sleep(sleepTime);
 }
