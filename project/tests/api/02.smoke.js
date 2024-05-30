@@ -5,8 +5,9 @@ import { SmokeOptions } from "../../config/load-options.js";
 import { checkResponse } from "../../utils/check-response.js";
 import { loginToApp } from '../../utils/login-to-app.js';
 import { addToCart } from '../../utils/add-to-cart.js';
-import { isItemAddedToCart } from '../../utils/is-item-added-to-cart.js';
+import { isItemAddedToCart, isCartEmpty } from '../../utils/cart.js';
 import { generateTimer } from '../../utils/common-functions.js';
+import { doPurchase } from '../../utils/do-purchase.js';
 
 const PRODUCT_ID = 10;
 
@@ -77,6 +78,13 @@ export default function () {
   });
 
   generateTimer(1); 
+
   addToCart(PRODUCT_ID);
   isItemAddedToCart(PRODUCT_ID);
+  generateTimer(1);
+  doPurchase();
+
+  generateTimer(1);
+
+  isCartEmpty();
 }

@@ -7,7 +7,7 @@ import { sleep } from 'k6';
  * @param {number} max - Maximum sleep time in seconds.
  */
 export function generateTimer(min, max) {
-  if (typeof min !== 'number' || typeof max !== 'number') {
+  if (typeof min !== 'number' || ((typeof max !== 'number') && (typeof max !== 'undefined'))) {
       throw new Error('Both min and max parameters should be numbers');
   }
 
