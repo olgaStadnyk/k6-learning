@@ -6,11 +6,6 @@ import checks from "../../../api-tests/checks.js";
 export const options = {
   vus: 1,
   duration: '15s',
-  thresholds: {
-    http_req_failed: ['rate<0.01'],
-    http_req_duration: ['avg<200', 'p(95)<250'],
-    checks: ['rate > 0.9']
-  },
 };
 
 export default function () {

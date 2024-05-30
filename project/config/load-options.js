@@ -25,6 +25,6 @@ export const SoakStages = [
 ];
 
 export const SmokeOptions = {
-  vus: "1",
-  duration: "10s",
+  vus: 3,
+  duration: "30s",
 };
