@@ -1,6 +1,6 @@
 import http from 'k6/http';
 import { sleep } from 'k6';
-import { GetToken } from './login-to-app.js';
+import { GetToken } from './login.js';
 import { API_URL } from "../config/constants.js";
 import { checkResponse } from "./check-response.js";
 import { describe } from 'https://jslib.k6.io/k6chaijs/4.3.4.0/index.js'

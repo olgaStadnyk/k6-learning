@@ -19,7 +19,6 @@ function getRandomUser() {
 }
 
 export function loginToApp() {
-
   const url = `${API_URL}/login`;
   const headers = {
     'Content-Type': 'application/json'
@@ -31,19 +30,20 @@ export function loginToApp() {
     password:  user.Password,
   };
 
-  generateTimer(1);
-
   describe(`Login as user ${username}`, async () => {
 
     const response = http.post(url, JSON.stringify(payload), { headers });
 
     checkResponse(response, 200);
-    check(response, {
+    const loginSuccess = check(response, {
       'auth token received:' : (r) => r.body.includes('"Auth_token:')
     });
 
     authToken = response.body.substring(13, 25);
+    
+    return loginSuccess;
   });
+  
 }
 
 export function GetUsername() {

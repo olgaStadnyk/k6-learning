@@ -1,15 +1,18 @@
-import http from "k6/http";
-import { check, sleep, group } from "k6";
-import { BASE_URL, API_URL } from "../../config/constants.js";
-import { SmokeOptions } from "../../config/load-options.js";
-import { checkResponse } from "../../utils/check-response.js";
-import { loginToApp } from '../../utils/login-to-app.js';
+import { group } from 'k6';
+import { SmokeOptions } from '../../config/load-options.js';
+import { loginToApp } from '../../utils/login.js';
 import { addToCart } from '../../utils/add-to-cart.js';
 import { isItemAddedToCart, isCartEmpty } from '../../utils/cart.js';
-import { generateTimer } from '../../utils/common-functions.js';
+import { waitTime } from '../../utils/common-functions.js';
 import { doPurchase } from '../../utils/do-purchase.js';
+import { logout } from '../../utils/logout.js';
+import { viewProduct } from '../../utils/view-product.js';
+import { openHomePage } from '../../utils/home-page.js';
+import { getAllProducts } from '../../utils/get-all-products.js';
+import { getAllProductsByCat } from '../../utils/get-all-products-category.js';
 
 const PRODUCT_ID = 10;
+const PRODUCT_CATEGORY = "monitor";
 
 export const options = {
   vus: SmokeOptions.vus,
@@ -22,69 +25,24 @@ export const options = {
 };
 
 export default function () {
-  group('get home page', function () {
-    const homePageResponse = http.get(BASE_URL);
-
-    check(homePageResponse, {
-      'status is 200': (r) => (r.status === 200) || (r.status === 304),
-      'has proper data': (r) => r.body.includes('PRODUCT STORE'), // Basic content check
-    });
+  group('User Journey', function () {
+    openHomePage();
+    waitTime(1);
+    loginToApp(); 
+    waitTime(1);
+    getAllProducts();
+    waitTime(1); 
+    getAllProductsByCat(PRODUCT_CATEGORY, 2);
+    waitTime(1); 
+    viewProduct(PRODUCT_ID, PRODUCT_CATEGORY);
+    waitTime(1); 
+    addToCart(PRODUCT_ID);
+    isItemAddedToCart(PRODUCT_ID);
+    waitTime(1);
+    doPurchase();
+    waitTime(1);
+    isCartEmpty();
+    waitTime(1);
+    logout();
   });
-
-  generateTimer(1);
-
-  loginToApp();
-
-  generateTimer(1);
-
-  group('get all items on Home Page', function () {
-    const itemsResponse = http.get(`${API_URL}/entries`);
-    checkResponse(itemsResponse, 200);
-    check(itemsResponse, {
-      'has correct amount': (r) => r.json().Items.length === 9, 
-      'the last item is notebook': (r) => r.json().Items[8].cat === "notebook", 
-    });
-  });
-
-  generateTimer(1); 
-
-  group('get all monitors', function () {
-    const payload = {cat: 'monitor'};
-
-    const viewAllMonitorsResponse = http.post(`${API_URL}/bycat`, JSON.stringify(payload), {
-      headers: { 'Content-Type': 'application/json'},
-    }); 
-    checkResponse(viewAllMonitorsResponse, 200);
-    check(viewAllMonitorsResponse, {
-      'has correct amount': (r) => r.json().Items.length === 2, 
-      'the first element category': (r) => r.json().Items[0].cat === "monitor",
-      'the second element category': (r) => r.json().Items[1].cat === "monitor",
-    });
-  });
-
-  generateTimer(1); 
-
-  group('view monitor', function () {
-    const payload = {id: 10};
-
-    const viewMonitorResponse = http.post(`${API_URL}/view`, JSON.stringify(payload), {
-      headers: { 'Content-Type': 'application/json'},
-    }); 
-    checkResponse(viewMonitorResponse, 200);
-    check(viewMonitorResponse, {
-      'category is correct': (r) => r.json().cat === "monitor",
-      'id is proper': (r) => r.json().id === PRODUCT_ID,
-    });
-  });
-
-  generateTimer(1); 
-
-  addToCart(PRODUCT_ID);
-  isItemAddedToCart(PRODUCT_ID);
-  generateTimer(1);
-  doPurchase();
-
-  generateTimer(1);
-
-  isCartEmpty();
 }
