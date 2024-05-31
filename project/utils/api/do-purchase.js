@@ -1,8 +1,8 @@
 import http from 'k6/http';
 import { GetUsername } from './login.js';
-import { waitTime } from './common-functions.js'
+import { waitTime } from '../common-functions.js'
 import { checkResponse } from "./check-response.js";
-import { API_URL } from "../config/constants.js";
+import { API_URL } from "../../config/constants.js";
 
 export function doPurchase() {
   const url = `${API_URL}/deletecart`;

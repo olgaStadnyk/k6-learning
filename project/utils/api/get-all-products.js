@@ -2,7 +2,7 @@ import http from 'k6/http';
 import { check } from 'k6';
 import { checkResponse } from "./check-response.js";
 import { describe } from 'https://jslib.k6.io/k6chaijs/4.3.4.0/index.js';
-import { API_URL } from "../config/constants.js";
+import { API_URL } from "../../config/constants.js";
 
 export function getAllProducts() {
   describe('Get all items on Home Page', async () => {

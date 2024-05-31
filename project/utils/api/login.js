@@ -2,13 +2,12 @@ import http from 'k6/http';
 import { check, sleep } from 'k6';
 import papaparse from 'https://jslib.k6.io/papaparse/5.1.1/index.js';
 import { SharedArray } from "k6/data";
-import { API_URL } from "../config/constants.js";
+import { API_URL } from "../../config/constants.js";
 import { checkResponse } from "./check-response.js";
 import { describe } from 'https://jslib.k6.io/k6chaijs/4.3.4.0/index.js';
-import { generateTimer } from './common-functions.js';
 
 const csvData = new SharedArray("data name", function () {
-  return papaparse.parse(open('../data/credentials.csv'), { header: true }).data;
+  return papaparse.parse(open('../../data/credentials.csv'), { header: true }).data;
 });
 
 let username;

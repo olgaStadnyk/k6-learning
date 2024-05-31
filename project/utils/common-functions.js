@@ -28,3 +28,8 @@ export function waitTime(min, max) {
   // Pause execution for the calculated sleep time
   sleep(sleepTime);
 }
+
+export function executeStep(stepFunction, waitTimeDuration = 1) {
+    stepFunction();
+    waitTime(waitTimeDuration);
+}
