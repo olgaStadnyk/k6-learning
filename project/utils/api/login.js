@@ -30,15 +30,17 @@ export function loginToApp() {
   };
 
   describe(`Login as user ${username}`, async () => {
-
+    sleep(1);
     const response = http.post(url, JSON.stringify(payload), { headers });
 
+    sleep(2);
+  
     checkResponse(response, 200);
     const loginSuccess = check(response, {
       'auth token received:' : (r) => r.body.includes('"Auth_token:')
     });
 
-    authToken = response.body.substring(13, 25);
+    authToken = response.body.split(': ')[1].split('"')[0];
     
     return loginSuccess;
   });

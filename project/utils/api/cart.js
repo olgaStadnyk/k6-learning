@@ -11,33 +11,40 @@ const headers = {
 };
 
 export function isItemAddedToCart(id) {
-  const payload = {
-    cookie: GetToken(),
-    flag: true,
-  };
-
-  describe(`Is product ${id} added to the cart`, async () => {
-    const response = http.post(url, JSON.stringify(payload), { headers });
-
-    check(response, { 
-      'product is successfully added to the cart' : (r) => r.body.includes(`"prod_id":${id}`)
+  const token = GetToken();
+  if (token) {
+    const payload = {
+      cookie: token,
+      flag: true,
+    };
+  
+    describe(`Is product ${id} added to the cart`, async () => {
+      const response = http.post(url, JSON.stringify(payload), { headers });
+  
+      check(response, { 
+        'product is successfully added to the cart' : (r) => r.body.includes(`"prod_id":${id}`)
+      });
+      checkResponse(response, 200);
     });
-    checkResponse(response, 200);
-  });
+  }
+  return token ? true : false;
 }
 
 export function isCartEmpty() {
-  const payload = {
-    cookie: GetToken(),
-    flag: true,
-  };
+  const token = GetToken();
+  if (token) {
+    const payload = {
+      cookie: token,
+      flag: true,
+    };
+    
+    describe(`Is cart empty`, async () => {
+      const response = http.post(url, JSON.stringify(payload), { headers });
   
-  describe(`Is cart empty`, async () => {
-    const response = http.post(url, JSON.stringify(payload), { headers });
-
-    check(response, { 
-      'cart empty' : (r) => r.json().Items.length === 0
+      check(response, { 
+        'cart empty' : (r) => r.json().Items.length === 0
+      });
+      checkResponse(response, 200);
     });
-    checkResponse(response, 200);
-  });
+  }
 }

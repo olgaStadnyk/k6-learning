@@ -3,11 +3,12 @@ import { check } from 'k6';
 import { BASE_URL } from "../../config/constants.js";
 import { describe } from 'https://jslib.k6.io/k6chaijs/4.3.4.0/index.js';
 import { checkResponse } from './check-response.js';
+import { generateGUID } from "../common-functions.js";
 
 export function logout() {
   const url = `${BASE_URL}/index.html`;
   const headers = {
-    'Cookie': 'user=6522186a-a0e7-0a2e-a716-5a6d2909716d',
+    'Cookie': `user=${generateGUID()}`,
   };
 
   describe(`Log out`, async () => {

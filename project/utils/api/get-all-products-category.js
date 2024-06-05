@@ -9,11 +9,12 @@ const headers = {
   'Content-Type': 'application/json'
 };
 
-export function getAllProductsByCat(category, amount) {
+export function getAllProductsByCat(category) {
   describe('Get all products by Category', async () => {
     const payload = {cat: category};
     const response = http.post(url, JSON.stringify(payload), { headers }); 
     const allProducts = response.json().Items;
+    const amount = (category === 'phone') ? 7 : ((category === 'notebook') ? 6 : 2);
 
     checkResponse(response, 200);
     check(response, {

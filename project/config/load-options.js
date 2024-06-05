@@ -1,7 +1,7 @@
 export const AverageStages = [
-  { duration: "5s", target: 3 },
-  { duration: "10s", target: 3 },
-  { duration: "5s", target: 0 },
+  { duration: "5m", target: 15 },
+  { duration: "30m", target: 15 },
+  { duration: "5m", target: 0 },
 ];
 
 export const StressStages = [

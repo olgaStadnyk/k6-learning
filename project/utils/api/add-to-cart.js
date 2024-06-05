@@ -3,7 +3,8 @@ import { sleep } from 'k6';
 import { GetToken } from './login.js';
 import { API_URL } from "../../config/constants.js";
 import { checkResponse } from "./check-response.js";
-import { describe } from 'https://jslib.k6.io/k6chaijs/4.3.4.0/index.js'
+import { describe } from 'https://jslib.k6.io/k6chaijs/4.3.4.0/index.js';
+import { generateGUID } from "../common-functions.js";
 
 export function addToCart(prodId) {
   const url = `${API_URL}/addtocart`;
@@ -11,20 +12,16 @@ export function addToCart(prodId) {
     'Content-Type': 'application/json'
   };
 
-  function generateGUID() {
-    let a = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'.replace(/[x]/g, function (c) {
-      var r = Math.random() * 16 | 0,
-        v = c === 'x' ? r : (r & 0x3 | 0x8);
-      return v.toString(16);
-    });
-    return a;
+  const token = GetToken();
+  if (!token) {
+    return false;
   }
 
   const payload = {
     id: generateGUID(),
-    cookie: GetToken(),
+    cookie: token ? token : `user=${generateGUID()}`,
     prod_id: prodId,
-    flag: true,
+    flag: token ? true : false,
   };
 
   sleep(1);
@@ -34,4 +31,6 @@ export function addToCart(prodId) {
 
     checkResponse(response, 200);
   });
+
+  return true;
 }

@@ -30,6 +30,16 @@ export function waitTime(min, max) {
 }
 
 export function executeStep(stepFunction, waitTimeDuration = 1) {
-    stepFunction();
+    const response = stepFunction();
     waitTime(waitTimeDuration);
+    return response;
+}
+
+export function generateGUID() {
+    let a = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'.replace(/[x]/g, function (c) {
+        var r = Math.random() * 16 | 0,
+        v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+    return a;
 }
