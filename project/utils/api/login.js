@@ -6,7 +6,7 @@ import { API_URL } from "../../config/constants.js";
 import { checkResponse } from "./check-response.js";
 import { describe } from 'https://jslib.k6.io/k6chaijs/4.3.4.0/index.js';
 
-const csvData = new SharedArray("data name", function () {
+export const csvData = new SharedArray("data name", function () {
   return papaparse.parse(open('../../data/credentials.csv'), { header: true }).data;
 });
 
@@ -17,12 +17,18 @@ function getRandomUser() {
   return csvData[Math.floor(Math.random() * csvData.length)];
 }
 
+function getUserForVU() {
+  return csvData[__VU % csvData.length];
+}
+
 export function loginToApp() {
   const url = `${API_URL}/login`;
   const headers = {
     'Content-Type': 'application/json'
   };
-  const user = getRandomUser();
+
+  const user = getUserForVU();
+
   username = user.Username;
   const payload = {
     username: username,

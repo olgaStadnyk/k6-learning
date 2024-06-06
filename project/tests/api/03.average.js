@@ -11,7 +11,7 @@ import { openHomePage } from '../../utils/api/home-page.js';
 import { getAllProducts } from '../../utils/api/get-all-products.js';
 import { getAllProductsByCat } from '../../utils/api/get-all-products-category.js';
 import { NavigateToNextPage } from '../../utils/api/pagination.js';
-import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js";
+import { csvData } from '../../utils/api/login.js';
 
 const jsonData = JSON.parse(open('../../data/products.json')).products;
 
@@ -32,13 +32,14 @@ export const options = {
 };
 
 export default function () {
-  group('User Journey', function () {
-    // console.log(`VU: ${__VU}  -  ITER: ${__ITER}`);
 
+  group('User Journey', function () {
     executeStep(openHomePage);
-    if (__VU % 2 === 0) {
+    if ((Math.floor((__VU - 1)/csvData.length) % 2 === 1) || (__ITER % 2 === 0)) {
+      // console.log(`PaginationFlow VU: ${__VU}  -  ITER: ${__ITER}`);
       PaginationFlow();
     } else {
+      // console.log(`PurchaseFlow VU: ${__VU}  -  ITER: ${__ITER}`);
       PurchaseFlow();
     }
   });
@@ -73,12 +74,6 @@ export function PaginationFlow() {
   NavigateToNextPage(1);
   viewProduct(product);
 }
-
-// export function handleSummary(data) {
-//   return {
-//     "project/results/smoke/02.summary.html": htmlReport(data),
-//   };
-// }
 
 export function teardown(data) {
   doPurchase(false);
