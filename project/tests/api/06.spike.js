@@ -1,5 +1,5 @@
 import { group } from 'k6';
-import { AverageStages } from '../../config/load-options.js';
+import { SpikeStages } from '../../config/load-options.js';
 import { loginToApp } from '../../pages/api/login.js';
 import { addToCart } from '../../pages/api/add-to-cart.js';
 import { isItemAddedToCart, isCartEmpty } from '../../pages/api/cart.js';
@@ -10,7 +10,6 @@ import { viewProduct } from '../../pages/api/view-product.js';
 import { openHomePage } from '../../pages/api/home-page.js';
 import { getAllProducts } from '../../pages/api/get-all-products.js';
 import { getAllProductsByCat } from '../../pages/api/get-all-products-category.js';
-import { NavigateToNextPage } from '../../pages/api/pagination.js';
 import { csvData } from '../../pages/api/login.js';
 
 const jsonData = JSON.parse(open('../../data/products.json')).products;
@@ -20,7 +19,7 @@ function getRandomProduct() {
 }
 
 export const options = {
-  stages: AverageStages,
+  stages: SpikeStages,
   thresholds: {
     http_req_failed: ['rate<0.01'],
     http_req_duration: ['avg<300', 'p(95)<400'],
@@ -40,8 +39,8 @@ export function userJourney() {
   group('User Journey', function () {
     executeStep(openHomePage);
     if ((Math.floor((__VU - 1)/csvData.length) % 2 === 1) || (__ITER % 2 === 0)) {
-      // console.log(`PaginationFlow VU: ${__VU}  -  ITER: ${__ITER}`);
-      PaginationFlow();
+      // console.log(`ViewProductFlow VU: ${__VU}  -  ITER: ${__ITER}`);
+      ViewProductFlow();
     } else {
       // console.log(`PurchaseFlow VU: ${__VU}  -  ITER: ${__ITER}`);
       PurchaseFlow();
@@ -53,8 +52,6 @@ function PurchaseFlow() {
   const product = getRandomProduct();
 
   executeStep(loginToApp, 2);
-  executeStep(getAllProducts);
-  executeStep(() => getAllProductsByCat(product.cat));
   executeStep(() => viewProduct(product));
   let loggedIn = executeStep(() => addToCart(product.id));
   if (loggedIn) {
@@ -69,13 +66,11 @@ function PurchaseFlow() {
   }
 }
 
-function PaginationFlow() {
+function ViewProductFlow() {
   const product = getRandomProduct();
 
   executeStep(getAllProducts);
-  executeStep(() => getAllProductsByCat("notebook"));
-  executeStep(() => NavigateToNextPage(9));
-  executeStep(() => NavigateToNextPage(1));
+  executeStep(() => getAllProductsByCat(product.cat));
   executeStep(() => viewProduct(product));
 }
 

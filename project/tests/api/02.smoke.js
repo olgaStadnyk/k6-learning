@@ -1,15 +1,15 @@
 import { group } from 'k6';
 import { SmokeOptions } from '../../config/load-options.js';
-import { loginToApp } from '../../utils/api/login.js';
-import { addToCart } from '../../utils/api/add-to-cart.js';
+import { loginToApp } from '../../pages/api/login.js';
+import { addToCart } from '../../pages/api/add-to-cart.js';
 import { isItemAddedToCart, isCartEmpty } from '../../utils/api/cart.js';
 import { executeStep } from '../../utils/common-functions.js';
-import { doPurchase } from '../../utils/api/do-purchase.js';
-import { logout } from '../../utils/api/logout.js';
-import { viewProduct } from '../../utils/api/view-product.js';
-import { openHomePage } from '../../utils/api/home-page.js';
-import { getAllProducts } from '../../utils/api/get-all-products.js';
-import { getAllProductsByCat } from '../../utils/api/get-all-products-category.js';
+import { doPurchase } from '../../pages/api/do-purchase.js';
+import { logout } from '../../pages/api/logout.js';
+import { viewProduct } from '../../pages/api/view-product.js';
+import { openHomePage } from '../../pages/api/home-page.js';
+import { getAllProducts } from '../../pages/api/get-all-products.js';
+import { getAllProductsByCat } from '../../pages/api/get-all-products-category.js';
 import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js";
 
 const PRODUCT_ID = 10;

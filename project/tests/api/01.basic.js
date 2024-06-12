@@ -1,7 +1,6 @@
 import http from "k6/http";
 import { check, sleep } from "k6";
 import { BASE_URL, API_URL } from "../../config/constants.js";
-import checks from "../../../api-tests/checks.js";
 
 export const options = {
   vus: 1,

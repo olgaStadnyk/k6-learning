@@ -1,9 +1,8 @@
 import http from 'k6/http';
 import { GetUsername } from './login.js';
-import { waitTime } from '../common-functions.js'
-import { checkResponse } from "./check-response.js";
+import { waitTime } from '../../utils/common-functions.js'
+import { checkResponse } from "../../utils/check-response.js";
 import { API_URL } from "../../config/constants.js";
-import { generateGUID } from "../common-functions.js";
 
 export function doPurchase(loggedIn = true) {
   const url = `${API_URL}/deletecart`;
@@ -12,7 +11,7 @@ export function doPurchase(loggedIn = true) {
   };
 
   const payload = {
-    cookie: loggedIn ? GetUsername() : `user=${generateGUID()}`,
+    cookie: loggedIn ? GetUsername() : "",
   };
 
   waitTime(1, 2);

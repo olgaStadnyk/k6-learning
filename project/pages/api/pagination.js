@@ -1,5 +1,5 @@
 import http from 'k6/http';
-import { checkResponse } from "./check-response.js";
+import { checkResponse } from "../../utils/check-response.js";
 
 export function NavigateToNextPage(pageId = 1) {
   const url = 'https://api.demoblaze.com/pagination';
