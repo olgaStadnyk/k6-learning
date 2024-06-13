@@ -5,6 +5,7 @@ import { SharedArray } from "k6/data";
 import { API_URL } from "../../config/constants.js";
 import { checkResponse } from "../../utils/check-response.js";
 import { describe } from 'https://jslib.k6.io/k6chaijs/4.3.4.0/index.js';
+import { allErrors } from '../../config/metrics.js';
 
 export const csvData = new SharedArray("data name", function () {
   return papaparse.parse(open('../../data/credentials.csv'), { header: true }).data;
@@ -45,6 +46,9 @@ export function loginToApp() {
     const loginSuccess = check(response, {
       'auth token received:' : (r) => r.body.includes('"Auth_token:')
     });
+    if (!loginSuccess) {
+      allErrors.add(1);
+    }
 
     authToken = response.body.split(': ')[1].split('"')[0];
     
