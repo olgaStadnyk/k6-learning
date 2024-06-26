@@ -79,6 +79,7 @@ Navigate to Readme file: first-test/README.md
 - `assets` - screenshots used in documentations
 - `browser-test` - contains documentation and tests examples for Browser testing
 - `cicd` - test example used in GH actions and docs
+- `project` - an example of the project with different types of performance tests. Go here after all previous learning folders.
 ...
 
 
