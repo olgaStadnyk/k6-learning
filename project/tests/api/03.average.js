@@ -31,7 +31,7 @@ export const options = {
   },
 };
 
-export default function userJourney() {
+export default function() {
   userJourney();
   
 }
