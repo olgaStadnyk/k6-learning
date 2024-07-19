@@ -59,7 +59,7 @@ Let's go through it, line by line.
 execution: local
 ```
 
-You can use k6 OSS to run test scripts locally (`local`) or on k6 Cloud (`cloud`).
+You can use k6 OSS (Open Source Software) to run test scripts locally (`local`) or on k6 Cloud (`cloud`).
 In this test, the test script was executed on your local machine.
 
 ```plain

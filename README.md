@@ -87,4 +87,7 @@ Navigate to Readme file: first-test/README.md
 
 - [Udemy course: "Performance Testing: Introduction to k6 for Beginners"](https://levi9.udemy.com/course/k6-load-testing-performance-testing/)
 - [Grafana k6 doc](https://grafana.com/docs/k6/latest/)
-
+- [test.k6.io](https://test.k6.io/) - Collection of simple web-pages suitable for load testing.
+- [Performance Testing and k6](https://medium.com/hepsiburadatech/performance-testing-and-k6-f650287607aa) - article.
+- https://notes.nicolevanderhoeven.com/k6+(tool)#Getting+started 
+- https://github.com/grafana/awesome-k6 

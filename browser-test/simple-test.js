@@ -63,3 +63,4 @@ export default async function () {
 }
 
 // k6 run browser-test/simple-test.js
+// K6_BROWSER_HEADLESS=false k6 run browser-test/simple-test.js
