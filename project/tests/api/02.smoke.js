@@ -2,7 +2,7 @@ import { group } from 'k6';
 import { SmokeOptions } from '../../config/load-options.js';
 import { loginToApp } from '../../pages/api/login.js';
 import { addToCart } from '../../pages/api/add-to-cart.js';
-import { isItemAddedToCart, isCartEmpty } from '../../utils/api/cart.js';
+import { isItemAddedToCart, isCartEmpty } from '../../pages/api/cart.js';
 import { executeStep } from '../../utils/common-functions.js';
 import { doPurchase } from '../../pages/api/do-purchase.js';
 import { logout } from '../../pages/api/logout.js';

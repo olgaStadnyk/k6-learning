@@ -1,7 +1,6 @@
 import { doPurchase } from '../../pages/api/do-purchase.js';
 import { userJourney } from './03.average.js';
 import { BreakpointOptions } from '../../config/load-options.js';
-import { allErrors } from "../../config/metrics.js";
 
 export const options = {
   executor: BreakpointOptions.executor,

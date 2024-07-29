@@ -3,7 +3,7 @@ import http from 'k6/http';
 export const options = {
   scenarios: {
     my_scenario1: {
-      executor: 'constant-arrival-rate',
+      executor: 'constant-arrival-rate', // A fixed number of iterations are executed in a specified period of time.
       duration: '30s', // total duration
       preAllocatedVUs: 50, // to allocate runtime resources  
 

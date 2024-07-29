@@ -66,4 +66,6 @@ export default async function () {
 
 // k6 run browser-test/browser-test.js
 
+// K6_BROWSER_HEADLESS=false k6 run browser-test/browser-test.js
+
 // k6 cloud browser-test/browser-test.js
